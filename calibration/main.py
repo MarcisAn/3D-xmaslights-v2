@@ -22,7 +22,6 @@ zAxis = []
 axis = []
 input = ""
 while True:
-    time.sleep(1/20)
     if ser.inWaiting()>0:
         input = ser.readline().decode()
         print(input)
