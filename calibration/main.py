@@ -41,7 +41,10 @@ while True:
         cord = x/2-450
 
     pygame.Surface.fill(screen, (0, 0, 0, 0))
-    pygame.draw.rect(screen, "white", (x, 1, 10, 100))
+    try:
+        pygame.draw.rect(screen, "white", (x, 1, 10, 100))
+    except:
+        pass
     events = pygame.event.get()
     for event in events:
         if event.type == pygame.QUIT:
