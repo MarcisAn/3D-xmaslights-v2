@@ -7,7 +7,7 @@ pygame.init()
 screen = pygame.display.set_mode((1800, 300))
 pygame.display.set_caption("Lampiņas")
 
-if sys.platform == "darvin":
+if sys.platform == "darwin":
     ser = serial.Serial("/dev/cu.usbmodem621")
 else:
     ser = serial.Serial("COM5")
