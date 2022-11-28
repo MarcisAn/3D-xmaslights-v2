@@ -22,7 +22,8 @@ zAxis = []
 axis = []
 
 while True:
-    input = ser.readline().decode()
+    input = ser.readline().decode().strip()
+    print(input)
     #input = "1"
     if "button" in input.strip():
         lightIndex = input.strip()[7:]
@@ -33,7 +34,10 @@ while True:
             break
 
     else:
-        x = int(input)*2
+        try:
+            x = int(input)*2
+        except:
+            pass
         cord = x/2-450
 
     pygame.Surface.fill(screen, (0, 0, 0, 0))
