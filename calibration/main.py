@@ -8,9 +8,9 @@ screen = pygame.display.set_mode((1800, 300))
 pygame.display.set_caption("Lampiņas")
 
 if sys.platform == "darwin":
-    ser = serial.Serial("/dev/cu.usbmodem621")
+    ser = serial.Serial("/dev/cu.usbmodem411")
 else:
-    ser = serial.Serial("COM5")
+    ser = serial.Serial("COM5",baudrate=9600)
 
 cords = []
 lightCount = 5
@@ -20,10 +20,12 @@ yAxis = []
 zAxis = []
 
 axis = []
-
+input = ""
 while True:
-    input = ser.readline().decode().strip()
-    print(input)
+    time.sleep(1/20)
+    if ser.inWaiting()>0:
+        input = ser.readline().decode()
+        print(input)
     #input = "1"
     if "button" in input.strip():
         lightIndex = input.strip()[7:]
@@ -36,9 +38,10 @@ while True:
     else:
         try:
             x = int(input)*2
+            cord = x / 2 - 450
         except:
             pass
-        cord = x/2-450
+
 
     pygame.Surface.fill(screen, (0, 0, 0, 0))
     try:
