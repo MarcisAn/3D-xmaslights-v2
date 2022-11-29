@@ -13,7 +13,7 @@ else:
     ser = serial.Serial("COM5",baudrate=9600)
 
 cords = []
-lightCount = 29
+lightCount = 99
 
 xAxis = []
 yAxis = []
