@@ -13,7 +13,7 @@ else:
     ser = serial.Serial("COM5",baudrate=9600)
 
 cords = []
-lightCount = 49
+lightCount = 29
 
 xAxis = []
 yAxis = []
@@ -21,20 +21,24 @@ zAxis = []
 
 axis = []
 input = ""
+isButton = False
 while True:
     if ser.inWaiting()>0:
         input = ser.readline().decode()
         print(input)
     #input = "1"
     if "button" in input.strip():
-        lightIndex = input.strip()[7:]
-        print(lightIndex, cord)
-        axis.append(cord)
-        if len(axis) == lightCount:
-            print("kalibrēšana pabeigta")
-            break
+        if not isButton:
+            lightIndex = input.strip()[7:]
+            print(lightIndex, cord)
+            axis.append(cord)
+            if len(axis) == lightCount:
+                print("kalibrēšana pabeigta")
+                break
+        isButton = True
 
     else:
+        isButton = False
         try:
             x = int(input)*2
             cord = x / 2 - 450
