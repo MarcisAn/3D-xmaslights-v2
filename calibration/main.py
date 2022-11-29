@@ -8,12 +8,12 @@ screen = pygame.display.set_mode((1800, 300))
 pygame.display.set_caption("Lampiņas")
 
 if sys.platform == "darwin":
-    ser = serial.Serial("/dev/cu.usbmodem411")
+    ser = serial.Serial("/dev/cu.usbmodem411", baudrate=9600)
 else:
     ser = serial.Serial("COM5",baudrate=9600)
 
 cords = []
-lightCount = 5
+lightCount = 49
 
 xAxis = []
 yAxis = []
