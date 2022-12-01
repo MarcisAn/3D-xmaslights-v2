@@ -5,8 +5,14 @@
     import "../global.scss"
     import {dev} from '$app/environment';
 
-    const socket = io("http://localhost:3000", {autoConnect: false})
-
+    //const socket = io("http://localhost:3000", {autoConnect: false})
+    let socket;
+    if (dev) {
+        socket = io("ws://localhost:3000", {autoConnect: false})
+    }
+    else{
+        socket = io("wss://lampinas.cvgmerch.lv/", {autoConnect: false})
+    }
     let el;
 
     socket.on("connect", (data) => {
@@ -34,7 +40,13 @@
         socket.connect()
     });
 
+    let controllData = "";
+    function sendData(){
+        socket.emit("lightControll", controllData)
+    }
 </script>
 <div class="vis">
     <canvas bind:this={el}></canvas>
 </div>
+<input type="text" value={controllData}>
+<button on:click={sendData}>Send</button>

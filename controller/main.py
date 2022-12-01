@@ -60,7 +60,7 @@ def disconnect():
 
 def connect():
     try:
-        sio.connect('https://lampinas.cvgmerch.lv')
+        sio.connect('wss://lampinas.cvgmerch.lv')
         return True
     except Exception as err:
         sendMessage("kontrolera savienojums neizdevās, mēģinām pēc "+str(retryTime))

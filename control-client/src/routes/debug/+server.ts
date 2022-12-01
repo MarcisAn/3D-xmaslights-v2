@@ -1,5 +1,4 @@
 import https from "https";
-import telegramData from "../../../../telegram.json"
 import {json} from '@sveltejs/kit';
 import type {RequestHandler} from './$types';
 
@@ -9,7 +8,7 @@ export const POST: RequestHandler = async ({request}) => {
     text = text.text
 
     function sendMessage() {
-        const url = "https://api.telegram.org/bot" + telegramData.key + "/sendMessage?chat_id=" + telegramData.id + "&text=" + text
+        const url = "https://api.telegram.org/bot" + process.env.TG_KEY + "/sendMessage?chat_id=" + process.env.ID + "&text=" + text
         https.get(url)
     }
 
