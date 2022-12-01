@@ -1,8 +1,8 @@
 import time
 import requests
 import socketio
-import json
 from sys import platform
+import json
 
 if platform == "linux" or platform == "linux2":
     debug = True
@@ -48,6 +48,7 @@ def connect():
 @sio.event
 def connect_error(data):
     print("savienojums neizdevās")
+    print(data)
     sendMessage("kontroliera savienojums neizdevās")
 
 
@@ -59,7 +60,7 @@ def disconnect():
 
 def connect():
     try:
-        sio.connect('http://localhost:3000/controller')
+        sio.connect('https://lampinas.cvgmerch.lv')
         return True
     except Exception as err:
         sendMessage("kontrolera savienojums neizdevās, mēģinām pēc "+str(retryTime))

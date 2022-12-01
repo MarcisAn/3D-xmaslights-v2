@@ -17,7 +17,10 @@ const httpServer = createServer(app);
 const wsserver = new Server(httpServer, {
     cors: {
         origin: ["*","http://localhost:5173"],
-    }
+
+    },
+    transports: ['websocket', 'polling'],
+    allowEIO3: true
 });
 
 wsserver.on("connection", (socket) => {
