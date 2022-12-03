@@ -11,7 +11,7 @@
     if (dev) {
         socket = io("ws://localhost:4000", {autoConnect: false})
     } else {
-        socket = io("wss://lampinas.cvgmerch.lv/client", {autoConnect: false})
+        socket = io("wss://lampinas.cvgmerch.lv", {autoConnect: false, path: "/client"})
     }
     let el;
 

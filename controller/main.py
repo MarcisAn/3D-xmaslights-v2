@@ -80,10 +80,11 @@ def disconnect():
 def connect():
     try:
 
-        if platform == "linux" or platform == "linux2":
-            sio.connect('wss://lampinas.cvgmerch.lv')
-        elif platform == "win32":
-            sio.connect('ws://localhost:3000')
+        #if platform == "linux" or platform == "linux2":
+        #    sio.connect('wss://lampinas.cvgmerch.lv')
+        #elif platform == "win32":
+        #    sio.connect('ws://localhost:3000')
+        sio.connect('wss://lampinas.cvgmerch.lv')
         return True
     except Exception as err:
         sendMessage("kontrolera savienojums neizdevās, mēģinām pēc "+str(retryTime))
