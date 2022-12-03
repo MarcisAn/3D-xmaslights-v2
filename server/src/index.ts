@@ -27,7 +27,8 @@ const clientServer = new Server(httpServer, {
         origin: ["*","http://localhost:5173","https://lampinas.vercel.app"],
     },
     transports: ['websocket', 'polling'],
-    allowEIO3: true
+    allowEIO3: true,
+    path: "/client"
 });
 let sendTOVis;
 let sendToController;
