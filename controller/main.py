@@ -12,9 +12,27 @@ elif platform == "win32":
 #debug = True
 retryTime = 10
 
-telegramData = json.load(open("../telegram.json"))
+telegramData = json.load(open("L:/Dev/xmaslights-v2/telegram.json"))
+
 # standard Python
 sio = socketio.Client()
+
+state = []
+buffer = []
+changedLights = []
+
+for i in range(0,200):
+    state.append((0,0,0))
+
+def changeLight(index, color):
+    buffer.append([index,(color)])
+
+def updateLights():
+    sio.emit("lightUpdate", buffer)
+    for l in buffer:
+        state[l[0]] = l[1]
+    buffer.clear()
+
 
 def sendMessage(text):
     if debug:
@@ -28,14 +46,15 @@ def message(data):
     print('I received a message!')
 
 
-@sio.on('my message')
+@sio.on('lightControll')
 def on_message(data):
-    print('I received a message!')
+    if data == "updown":
+        exec(open("animations/UpAndDown.py").read())
 
 
 @sio.on('*')
 def catch_all(event, data):
-    pass
+     pass
 
 
 @sio.event
@@ -60,7 +79,11 @@ def disconnect():
 
 def connect():
     try:
-        sio.connect('wss://lampinas.cvgmerch.lv')
+
+        if platform == "linux" or platform == "linux2":
+            sio.connect('wss://lampinas.cvgmerch.lv')
+        elif platform == "win32":
+            sio.connect('ws://localhost:3000')
         return True
     except Exception as err:
         sendMessage("kontrolera savienojums neizdevās, mēģinām pēc "+str(retryTime))

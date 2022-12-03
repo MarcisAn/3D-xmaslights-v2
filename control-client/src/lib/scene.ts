@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import {OrbitControls} from "three/examples/jsm/controls/OrbitControls";
-import {chords, lightData} from "./state";
+import {lightData} from "./state";
+import chords from "../../../chords.json"
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(30, 1, 0.1, 1000);
@@ -26,33 +27,47 @@ function map_range(value: number) {
     return 0 + (1 - 0) * (value - 0) / (255 - 0);
 }
 export const createScene = (el: any) => {
-    let lightColorData;
-    const unsubscribe = lightData.subscribe((value) => (lightColorData = value));
     renderer = new THREE.WebGLRenderer({antialias: true, canvas: el});
     controls = new OrbitControls(camera, renderer.domElement);
     controls.enableZoom = false;
     controls.enablePan = false;
     //controls.minPolarAngle = -90;
-
     let lightIndex = 0;
     for (const light of chords) {
         const material = new THREE.MeshBasicMaterial({color: 0x000000});
 
         const cube = new THREE.Mesh(geometry, material);
         cube.position.x = light.x-0.5;
-        cube.position.y = light.y-0.5;
-        cube.position.z = light.z-0.5;
+        cube.position.z = light.y-0.5;
+        cube.position.y = light.z-0.5;
         cube.scale.x = 0.03;
         cube.scale.y = 0.03;
         cube.scale.z = 0.03;
         // @ts-ignore
-        const color = lightColorData[lightIndex];
-        cube.material.color.setHSL(map_range(color.r), map_range(color.g), map_range(color.b))
-        scene.add(cube)
-
-        lightIndex++;
+        try {
+            cube.material.color.setRGB(0,0,0)
+            cube.name = lightIndex.toString()
+            // @ts-ignore
+            cube.changeColor = ((r: number, g: number, b: number) => {
+                cube.material.color.setRGB(r,g,b)
+            })
+            scene.add(cube)
+        }
+        catch (e) {
+            console.log(e)
+        }
+        lightIndex += 1;
     }
+
     resize();
     animate();
 };
 
+export async function renderVis(data:any){
+    console.log(data)
+    data.forEach((light: string[]) =>{
+        const obj = scene.getObjectByName(light[0].toString());
+        obj.changeColor(light[1][0],light[1][1],light[1][2])
+    })
+    //console.log(lightColorData)
+}

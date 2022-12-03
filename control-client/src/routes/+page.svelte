@@ -1,16 +1,16 @@
 <script>
     import io from 'socket.io-client'
     import {onMount} from 'svelte';
-    import {createScene} from '../lib/scene.ts';
+    import {createScene, renderVis} from '../lib/scene.ts';
     import "../global.scss"
     import {dev} from '$app/environment';
+    import {lightData} from "../lib/state.ts";
 
     //const socket = io("http://localhost:3000", {autoConnect: false})
     let socket;
     if (dev) {
-        socket = io("ws://localhost:3000", {autoConnect: false})
-    }
-    else{
+        socket = io("ws://localhost:4000", {autoConnect: false})
+    } else {
         socket = io("wss://lampinas.cvgmerch.lv/", {autoConnect: false})
     }
     let el;
@@ -24,6 +24,16 @@
     socket.on("controllerStatus", (data) => {
         console.log(data)
     })
+
+    socket.on("lightUpdate", (data) => {
+        const prevState = $lightData
+        data.forEach(light => {
+            prevState[light[0]] = {r: light[1][0], g: light[1][2], b: light[1][2]}
+        })
+        renderVis(data)
+
+    })
+
 
     socket.on("connect_error", (e) => {
         debugMessage("klientam neizdevās pievienoties serverim")
@@ -41,12 +51,13 @@
     });
 
     let controllData = "";
-    function sendData(){
+
+    function sendData() {
         socket.emit("lightControll", controllData)
     }
 </script>
 <div class="vis">
     <canvas bind:this={el}></canvas>
 </div>
-<input type="text" value={controllData}>
+<input type="text" bind:value={controllData}>
 <button on:click={sendData}>Send</button>
