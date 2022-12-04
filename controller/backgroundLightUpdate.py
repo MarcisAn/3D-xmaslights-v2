@@ -2,6 +2,7 @@ import time
 from animations.flicker import flicker
 from animations.axis import axis
 from animations.updown import updown
+from animations.updownsphere import updownsphere
 
 currentAnim = "axis"
 
@@ -13,7 +14,9 @@ def changeAnim(newanim,sio):
     while currentAnim == "axis":
         axis(sio)
     while currentAnim == "updown":
-        updown()
+        updown(sio)
+    while currentAnim == "updownsphere":
+        updownsphere(sio)
 
 
 

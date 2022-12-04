@@ -29,7 +29,6 @@ def changeLight(index, color):
     buffer.append([index,(color)])
 
 def updateLights(sio_new):
-    print(sio_new.connection_namespaces)
     sio_new.emit("lightUpdate", buffer)
     for l in buffer:
         state[l[0]] = l[1]
@@ -38,7 +37,7 @@ def updateLights(sio_new):
 
 def sendMessage(text):
     if debug:
-        url = "5https://api.telegram.org/bot" + telegramData["key"] + "/sendMessage?chat_id=" + \
+        url = "https://api.telegram.org/bot" + telegramData["key"] + "/sendMessage?chat_id=" + \
               telegramData["id"] + \
               "&text=" + text
         requests.get(url)
@@ -50,7 +49,7 @@ def message(data):
 
 @sio.on('lightControll')
 def on_message(data):
-    changeAnim(data)
+    changeAnim(data, sio)
 
 
 @sio.on('*')

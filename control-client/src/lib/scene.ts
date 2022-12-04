@@ -45,7 +45,7 @@ export const createScene = (el: any) => {
         cube.scale.z = 0.015;
         // @ts-ignore
         try {
-            cube.material.color.setRGB(255,0,0)
+            cube.material.color.setRGB(0,0,0)
             cube.name = lightIndex.toString()
             // @ts-ignore
             cube.changeColor = ((r: number, g: number, b: number) => {

@@ -3,19 +3,21 @@ import time
 import json
 import math
 from main import changeLight, updateLights
+import os
 
-chords = json.load(open("L://Dev/xmaslights-v2/chords.json"))
+dirname = os.path.dirname(__file__)
+chords = json.load(open(os.path.join(dirname, '../../chords.json')))
 
 def terminate():
     sys.exit()
 
-def flicker():
+def flicker(sio):
     print("flicker")
-    time.sleep(2)
+    time.sleep(0.5)
     for i in range(0,199):
         changeLight(i, (0, 255, 0))
-    updateLights()
-    time.sleep(2)
+    updateLights(sio)
+    time.sleep(0.5)
     for i in range(0, 199):
         changeLight(i, (255, 0, 255))
-    updateLights()
+    updateLights(sio)
