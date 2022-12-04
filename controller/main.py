@@ -20,8 +20,7 @@ elif platform == "win32":
 retryTime = 10
 
 dirname = os.path.dirname(__file__)
-path = json.load(open(os.path.join(dirname, '../telegram.json')))
-telegramData = json.load(open(path))
+telegramData = json.load(open(os.path.join(dirname, '../telegram.json')))
 
 # standard Python
 sio = socketio.Client()
