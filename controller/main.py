@@ -18,7 +18,9 @@ elif platform == "win32":
 #debug = True
 retryTime = 10
 
-telegramData = json.load(open("L:/Dev/xmaslights-v2/telegram.json"))
+dirname = os.path.dirname(__file__)
+path = json.load(open(os.path.join(dirname, '../telegram.json')))
+telegramData = json.load(open(path))
 
 # standard Python
 sio = socketio.Client()
