@@ -52,7 +52,8 @@ clientServer.on("connection", (socket) => {
             sendToController(data)
         }
         catch (e){
-            sendMessage("kontrolieris nav pievienojies")
+            console.log(e)
+            //sendMessage("kontrolieris nav pievienojies")
         }
     })
 })

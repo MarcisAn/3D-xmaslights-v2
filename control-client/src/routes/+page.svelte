@@ -9,7 +9,7 @@
     //const socket = io("http://localhost:3000", {autoConnect: false})
     let socket;
     if (dev) {
-        socket = io("ws://localhost:4000", {autoConnect: false})
+        socket = io("ws://localhost:4000", {autoConnect: false, path: "/client", transports: ['websocket', 'polling']})
     } else {
         socket = io("wss://lampinas.cvgmerch.lv", {autoConnect: false, path: "/client", transports: ['websocket']})
     }
@@ -41,8 +41,12 @@
 
     function debugMessage(text) {
         if (!dev) {
-            fetch("http://localhost:5173/debug", {method: "POST", body: JSON.stringify({text: text})})
+            const url = "http://localhost:5173/debug"
         }
+        else{
+            const url = "https://lampinas.vercel.app/debug"
+        }
+        fetch("http://localhost:5173/debug", {method: "POST", body: JSON.stringify({text: text})})
     }
 
     onMount(() => {
