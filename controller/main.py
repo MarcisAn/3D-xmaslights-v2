@@ -6,6 +6,11 @@ import json
 from backgroundLightUpdate import *
 
 if platform == "linux" or platform == "linux2":
+    import board
+    import neopixel
+    pixels = neopixel.NeoPixel(board.D18,200)
+
+if platform == "linux" or platform == "linux2":
     debug = True
 elif platform == "win32":
     debug = False
@@ -26,6 +31,7 @@ for i in range(0,200):
     state.append((0,0,0))
 
 def changeLight(index, color):
+    pixels[index] = color
     buffer.append([index,(color)])
 
 def updateLights(sio_new):
