@@ -33,11 +33,14 @@ for i in range(0,200):
     state.append((0,0,0))
 
 def changeLight(index, color):
-    pixels[index] = color
+    if platform == "linux" or platform == "linux2":
+        pixels[index] = color
     buffer.append([index,(color)])
 
 def updateLights(sio_new):
     sio_new.emit("lightUpdate", buffer)
+    if platform == "linux" or platform == "linux2":
+        pixels.show()
     for l in buffer:
         state[l[0]] = l[1]
     buffer.clear()
