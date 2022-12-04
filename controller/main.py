@@ -4,6 +4,7 @@ import socketio
 from sys import platform
 import json
 from backgroundLightUpdate import *
+import os
 
 if platform == "linux" or platform == "linux2":
     import board
