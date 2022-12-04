@@ -10,9 +10,6 @@ const app = express();
 let controllerID = null;
 let clientID = null;
 
-let controllerSocket;
-let clientSocket;
-
 const httpServer = createServer(app);
 const controllerServer = new Server(httpServer, {
     cors: {
@@ -33,7 +30,7 @@ const clientServer = new Server(httpServer, {
 let sendTOVis;
 let sendToController;
 controllerServer.on("connection", (socket) => {
-    console.log("connection")
+    console.log("connectionController")
 
     socket.on("lightUpdate", async (data)=>{
         sendTOVis(data);
@@ -41,6 +38,7 @@ controllerServer.on("connection", (socket) => {
     sendToController= ((data)=>{
         socket.emit("lightControll", data)
     })
+
 })
 clientServer.on("connection", (socket) => {
     console.log("connectionClient")

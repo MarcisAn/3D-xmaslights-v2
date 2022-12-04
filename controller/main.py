@@ -3,6 +3,7 @@ import requests
 import socketio
 from sys import platform
 import json
+from backgroundLightUpdate import *
 
 if platform == "linux" or platform == "linux2":
     debug = True
@@ -19,7 +20,7 @@ sio = socketio.Client()
 
 state = []
 buffer = []
-changedLights = []
+
 
 for i in range(0,200):
     state.append((0,0,0))
@@ -27,8 +28,9 @@ for i in range(0,200):
 def changeLight(index, color):
     buffer.append([index,(color)])
 
-def updateLights():
-    sio.emit("lightUpdate", buffer)
+def updateLights(sio_new):
+    print(sio_new.connection_namespaces)
+    sio_new.emit("lightUpdate", buffer)
     for l in buffer:
         state[l[0]] = l[1]
     buffer.clear()
@@ -36,7 +38,7 @@ def updateLights():
 
 def sendMessage(text):
     if debug:
-        url = "https://api.telegram.org/bot" + telegramData["key"] + "/sendMessage?chat_id=" + \
+        url = "5https://api.telegram.org/bot" + telegramData["key"] + "/sendMessage?chat_id=" + \
               telegramData["id"] + \
               "&text=" + text
         requests.get(url)
@@ -48,8 +50,7 @@ def message(data):
 
 @sio.on('lightControll')
 def on_message(data):
-    if data == "updown":
-        exec(open("animations/UpAndDown.py").read())
+    changeAnim(data)
 
 
 @sio.on('*')
@@ -61,7 +62,7 @@ def catch_all(event, data):
 def connect():
     print("savienojums izveidots")
     sendMessage("kontrolieris pievienojies")
-    sio.emit("connectioninfo", "controller")
+    changeAnim("axis",sio)
 
 
 @sio.event
@@ -79,14 +80,14 @@ def disconnect():
 
 def connect():
     try:
-
         #if platform == "linux" or platform == "linux2":
         #    sio.connect('wss://lampinas.cvgmerch.lv')
         #elif platform == "win32":
-        #    sio.connect('ws://localhost:3000')
+        #    sio.connect('ws://localhost:3000', namespaces=["/"])
         sio.connect('wss://lampinas.cvgmerch.lv')
         return True
     except Exception as err:
+        print(err)
         sendMessage("kontrolera savienojums neizdevās, mēģinām pēc "+str(retryTime))
         print("neizdevās savienoties")
         return False
@@ -99,7 +100,6 @@ def tryConnecting():
         else:
             break
 
-tryConnecting()
 
-# time.sleep(1)
-# sio.emit('data', {'foo': 'bar'})
+if __name__ == '__main__':
+    tryConnecting()

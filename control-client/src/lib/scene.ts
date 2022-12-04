@@ -37,15 +37,15 @@ export const createScene = (el: any) => {
         const material = new THREE.MeshBasicMaterial({color: 0x000000});
 
         const cube = new THREE.Mesh(geometry, material);
-        cube.position.x = light.x-0.5;
-        cube.position.z = light.y-0.5;
-        cube.position.y = light.z-0.5;
-        cube.scale.x = 0.03;
-        cube.scale.y = 0.03;
-        cube.scale.z = 0.03;
+        cube.position.x = light.x/900;
+        cube.position.z = light.y/900;
+        cube.position.y = light.z/900;
+        cube.scale.x = 0.015;
+        cube.scale.y = 0.015;
+        cube.scale.z = 0.015;
         // @ts-ignore
         try {
-            cube.material.color.setRGB(0,0,0)
+            cube.material.color.setRGB(255,0,0)
             cube.name = lightIndex.toString()
             // @ts-ignore
             cube.changeColor = ((r: number, g: number, b: number) => {
@@ -67,6 +67,7 @@ export async function renderVis(data:any){
     console.log(data)
     data.forEach((light: string[]) =>{
         const obj = scene.getObjectByName(light[0].toString());
+        // @ts-ignore
         obj.changeColor(light[1][0],light[1][1],light[1][2])
     })
     //console.log(lightColorData)
