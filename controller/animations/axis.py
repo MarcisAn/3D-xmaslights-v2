@@ -20,7 +20,6 @@ def axis(sio):
     global level
     while level<1:
         time.sleep(0.05)
-        print(level)
         level += 0.05
         index = 0
         for light in chords:
@@ -34,7 +33,6 @@ def axis(sio):
     level = -1.0
     while level<1:
         time.sleep(0.05)
-        print(math.sin(level))
         level += 0.05
         index = 0
         for light in chords:
@@ -48,7 +46,6 @@ def axis(sio):
     level = -1.0
     while level<1:
         time.sleep(0.05)
-        print(math.sin(level))
         level += 0.05
         index = 0
         for light in chords:

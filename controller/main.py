@@ -43,6 +43,12 @@ def updateLights(sio_new):
         pixels.show()
     for l in buffer:
         state[l[0]] = l[1]
+    f = open("lightData.json", "w")
+    #f.write(json.dumps(state))
+    print(state)
+    for i in state:
+        f.write(str(i[0])+" "+ str(i[1])+ " "+str(i[2])+"\n")
+    f.close()
     buffer.clear()
 
 

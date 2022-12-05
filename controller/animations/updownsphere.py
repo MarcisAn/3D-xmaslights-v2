@@ -28,8 +28,7 @@ def updownsphere(sio):
     for light in chords:
         center = math.sin(level)
         center = center*450
-        print(center, distance(0,0,center,light["x"],light["y"], light["z"]))
-        if distance(0,0,center,light["x"],light["y"], light["z"]) > 300:
+        if distance(0,0,center,light["x"],light["y"], light["z"]) > 100:
             changeLight(index, (0, 0, 0))
         else:
             changeLight(index, (255, 0, 0))
