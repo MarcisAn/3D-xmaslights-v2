@@ -4,3 +4,4 @@ dist
 .idea
 venv
 *.pyc
+controller/lightData.json

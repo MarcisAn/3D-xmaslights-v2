@@ -108,14 +108,5 @@ def connect():
         print("neizdevās savienoties")
         return False
 
-def tryConnecting():
-    while True:
-        if connect() == False:
-            connect()
-            time.sleep(10)
-        else:
-            break
-
-
 if __name__ == '__main__':
-    tryConnecting()
+    connect()
