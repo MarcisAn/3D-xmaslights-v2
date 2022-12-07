@@ -10,12 +10,15 @@ if platform == "linux" or platform == "linux2":
 
 while True:
     f = open("lightData.json", "r")
-    data = f.readlines()
+    data = f.read()
+    data = data.split("\n")
     for j in data:
-        print(j)
+        pass
+        #print(j)
     for i in range(0,199):
         if platform == "linux" or platform == "linux2":
-            pixels[i] = data[i]
+            print(data[i])
+            #pixels[i] = data[i]
     if platform == "linux" or platform == "linux2":
         pixels.show()
     time.sleep(1/20)
