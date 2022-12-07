@@ -6,27 +6,18 @@ from animations.updownsphere import updownsphere
 
 currentAnim = "axis"
 
-def changeAnim(newanim,sio):
+def changeAnim(newanim):
     global currentAnim
     currentAnim = newanim
     while currentAnim == "flicker":
-        flicker(sio)
+        print("flicker")
+        flicker()
     while currentAnim == "axis":
-        axis(sio)
+        print("axis")
+        axis()
     while currentAnim == "updown":
-        updown(sio)
+        print("updown")
+        updown()
     while currentAnim == "updownsphere":
-        updownsphere(sio)
-
-
-
-def startLights():
-    pass
-    ##global anim_thread
-    ##anim_thread = multiprocessing.Process(target=axis, name="Lights")
-    ##anim_thread.start()
-    ###while True:
-
-
-if __name__ == '__backgroundLightUpdate__':
-    startLights()
+        print("updownsphere")
+        updownsphere()

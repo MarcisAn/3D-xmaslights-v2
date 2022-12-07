@@ -16,7 +16,7 @@ def mod(i):
         return 0-i
     else:
         return i
-def updown(sio):
+def updown():
     global level
     time.sleep(0.05)
     print(math.sin(level))
@@ -28,4 +28,4 @@ def updown(sio):
         else:
             changeLight(index, (0, 0, 255))
         index += 1
-    updateLights(sio)
+    updateLights()

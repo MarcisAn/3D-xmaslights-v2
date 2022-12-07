@@ -11,13 +11,12 @@ chords = json.load(open(os.path.join(dirname, '../../chords.json')))
 def terminate():
     sys.exit()
 
-def flicker(sio):
-    print("flicker")
+def flicker():
     time.sleep(0.5)
     for i in range(0,199):
         changeLight(i, (0, 255, 0))
-    updateLights(sio)
+    updateLights()
     time.sleep(0.5)
     for i in range(0, 199):
         changeLight(i, (255, 0, 255))
-    updateLights(sio)
+    updateLights()

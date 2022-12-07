@@ -40,7 +40,7 @@
     })
 
     function debugMessage(text) {
-        if (!dev) {
+        if (dev) {
             const url = "http://localhost:5173/debug"
         }
         else{
@@ -51,17 +51,30 @@
 
     onMount(() => {
         createScene(el);
-        socket.connect()
     });
 
     let controllData = "";
 
-    function sendData() {
-        socket.emit("lightControll", controllData)
+    async function sendData() {
+        let url;
+        if (dev) {
+            url = "http://localhost:3000"
+        }
+        else{
+            url = "https://lampinas.cvgmerch.lv"
+        }
+        await fetch(url + '/setAnim', {
+            method: 'POST',
+            body: JSON.stringify({
+                anim: controllData
+            })
+        })
     }
 </script>
+<!--
 <div class="vis">
     <canvas bind:this={el}></canvas>
 </div>
+-->
 <input type="text" bind:value={controllData}>
 <button on:click={sendData}>Send</button>

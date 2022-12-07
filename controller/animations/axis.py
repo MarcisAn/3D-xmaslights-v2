@@ -16,7 +16,7 @@ def mod(i):
         return 0-i
     else:
         return i
-def axis(sio):
+def axis():
     global level
     while level<1:
         time.sleep(0.05)
@@ -29,7 +29,7 @@ def axis(sio):
             else:
                 changeLight(index, (0, 0, 0))
             index += 1
-        updateLights(sio)
+        updateLights()
     level = -1.0
     while level<1:
         time.sleep(0.05)
@@ -42,7 +42,7 @@ def axis(sio):
             else:
                 changeLight(index, (0, 0, 0))
             index += 1
-        updateLights(sio)
+        updateLights()
     level = -1.0
     while level<1:
         time.sleep(0.05)
@@ -55,5 +55,5 @@ def axis(sio):
             else:
                 changeLight(index, (0, 0, 0))
             index += 1
-        updateLights(sio)
+        updateLights()
     level = -1.0
