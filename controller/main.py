@@ -47,7 +47,7 @@ for i in range(0,200):
 
 def changeLight(index, color):
     if platform == "linux" or platform == "linux2":
-        strip.setPixelColor(index, Color(color[1]*255, color[0]*255, color[2]*255))
+        strip.setPixelColor(index, Color(int(color[1]*254), int(color[0]*254), int(color[2]*254)))
         #pixels[index] = color
     buffer.append([index,(color)])
 

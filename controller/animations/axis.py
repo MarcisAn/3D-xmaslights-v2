@@ -24,7 +24,7 @@ def axis(sio):
         index = 0
         for light in chords:
             pass
-            if mod(math.sin(level) * 450 + 0.5 - light["x"]) < 90:
+            if mod(math.sin(level) * 450 + 0.5 - light["x"]) < 70:
                 changeLight(index, (1, 0, 0))
             else:
                 changeLight(index, (0, 0, 0))
@@ -37,7 +37,7 @@ def axis(sio):
         index = 0
         for light in chords:
             pass
-            if mod(math.sin(level) * 450 + 0.5 - light["y"]) < 90:
+            if mod(math.sin(level) * 450 + 0.5 - light["y"]) < 70:
                 changeLight(index, (0, 1, 0))
             else:
                 changeLight(index, (0, 0, 0))
@@ -50,7 +50,7 @@ def axis(sio):
         index = 0
         for light in chords:
             pass
-            if mod(math.sin(level) * 450 + 0.5 - light["z"]) < 90:
+            if mod(math.sin(level) * 450 + 0.5 - light["z"]) < 70:
                 changeLight(index, (0, 0, 1))
             else:
                 changeLight(index, (0, 0, 0))

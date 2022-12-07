@@ -24,7 +24,7 @@ def updown(sio):
     index = 0
     for light in chords:
         if mod(math.sin(level)*450 + 0.5 - light["z"]) > 90:
-            changeLight(index, (math.sin(level), 1-math.sin(level), 0))
+            changeLight(index, (int(math.sin(level)), int(1-math.sin(level)), 0))
         else:
             changeLight(index, (0, 0, 255))
         index += 1
